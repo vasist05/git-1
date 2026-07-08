@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student ID Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+        }
+
+        /* ID Card Styles */
+        .id-card {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            display: none;
+        }
+
+        .id-card.show {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .id-header {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .id-header h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .id-header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .id-avatar {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .id-details {
+            margin: 25px 0;
+        }
+
+        .id-detail-row {
+            margin-bottom: 15px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .id-detail-label {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .id-detail-value {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .id-footer {
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            padding-top: 15px;
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 10px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h2>Generate Student ID Card</h2>
+            <form id="idForm">
+                <div class="form-group">
+                    <label for="name">Student Name:</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rollno">Roll Number:</label>
+                    <input type="text" id="rollno" placeholder="Enter your roll number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="branch">Branch:</label>
+                    <input type="text" id="branch" placeholder="Enter your branch" required>
+                </div>
+
+                <button type="submit" class="btn">Generate ID Card</button>
+            </form>
+        </div>
+
+        <div class="id-card" id="idCard">
+            <div class="id-header">
+                <h3>STUDENT ID CARD</h3>
+                <p>University Identification</p>
+            </div>
+
+            <div class="id-avatar">👤</div>
+
+            <div class="id-details">
+                <div class="id-detail-row">
+                    <div class="id-detail-label">Student Name</div>
+                    <div class="id-detail-value" id="cardName">-</div>
+                </div>
+
+                <div class="id-detail-row">
+                    <div class="id-detail-label">Roll Number</div>
+                    <div class="id-detail-value" id="cardRoll">-</div>
+                </div>
+
+                <div class="id-detail-row">
+                    <div class="id-detail-label">Branch</div>
+                    <div class="id-detail-value" id="cardBranch">-</div>
+                </div>
+            </div>
+
+            <div class="id-footer">
+                <p>Valid Student Identification</p>
+                <p>© 2024 Educational Institution</p>
+            </div>
+
+            <button type="button" class="reset-btn" onclick="resetForm()">Generate New Card</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('idForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const rollno = document.getElementById('rollno').value;
+            const branch = document.getElementById('branch').value;
+
+            document.getElementById('cardName').textContent = name;
+            document.getElementById('cardRoll').textContent = rollno;
+            document.getElementById('cardBranch').textContent = branch;
+
+            document.getElementById('idCard').classList.add('show');
+            document.querySelector('.form-section').style.display = 'none';
+        });
+
+        function resetForm() {
+            document.getElementById('idForm').reset();
+            document.getElementById('idCard').classList.remove('show');
+            document.querySelector('.form-section').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
