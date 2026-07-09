@@ -1,0 +1,1 @@
+just i wanted to create a git repository and try to use basic git functions through vs code
